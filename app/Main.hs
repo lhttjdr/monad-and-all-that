@@ -6,6 +6,9 @@ import Tree.BeforeMonad as B
 import Tree.Monad as M
 import Tree.AfterMonad as A
 
+import System.Random (mkStdGen)
+import Random.Monad as RM
+
 tree1 :: Tree Char
 tree1 = Branch (Leaf 'A') (Branch (Branch (Leaf 'B') (Leaf 'C')) (Leaf 'D'))
 
@@ -30,3 +33,4 @@ main = do
     print $ "tree 1: " ++ show tree1
     print $ "tree 2: " ++ show tree3
     print $ "zipped tree: " ++ show (M.zipTree tree1 tree3)
+    print $ RM.unRandom (randomList (randomInt 869)) (mkStdGen 656868565)
