@@ -4,6 +4,7 @@ import Tree
 import Tree.Naive as N
 import Tree.BeforeMonad as B
 import Tree.Monad as M
+import Tree.AfterMonad as A
 
 tree1 :: Tree Char
 tree1 = Branch (Leaf 'A') (Branch (Branch (Leaf 'B') (Leaf 'C')) (Leaf 'D'))
@@ -19,7 +20,7 @@ main = do
     print "Monad and all that..."
     print ">>> Test 1: number a tree"
     print $ "original tree: " ++ show tree1
-    print $ "(numbered tree, counter): " ++ show (unState (M.number tree1) 1)
+    print $ "(numbered tree, counter): " ++ show (M.unState (M.number tree1) 1)
     print ">>> Test 2: zip two trees"
     print ">>>> Test 2.1 same shape"
     print $ "tree 1: " ++ show tree1

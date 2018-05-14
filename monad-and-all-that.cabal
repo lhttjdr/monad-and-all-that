@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: cae2bdbe9c066db2eab2c54965bc42e15e4654ca0fd25f82a170887bd7fd5f97
+-- hash: 03fe78163635e7e0e29bfb1d1b2474d255038f90eb6faca6cb0d261cb85b818c
 
 name:           monad-and-all-that
 version:        0.1.0.0
@@ -27,6 +27,7 @@ source-repository head
 library
   exposed-modules:
       Tree
+      Tree.AfterMonad
       Tree.BeforeMonad
       Tree.BeforeMonad.Number
       Tree.BeforeMonad.ZipTree
