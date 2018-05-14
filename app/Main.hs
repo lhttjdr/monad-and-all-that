@@ -1,6 +1,6 @@
 module Main where
 
-import Tree
+import Tree (Tree(..))
 import Tree.Naive as N
 import Tree.BeforeMonad as B
 import Tree.Monad as M
@@ -10,6 +10,8 @@ import System.Random (mkStdGen)
 import Random.Monad as RM
 
 import IO
+
+import Queens
 
 tree1 :: Tree Char
 tree1 = Branch (Leaf 'A') (Branch (Branch (Leaf 'B') (Leaf 'C')) (Leaf 'D'))
@@ -37,3 +39,7 @@ main = do
     print $ RM.unRandom (randomList (randomInt 869)) (mkStdGen 656868565)
     putStrLn ">>> Test 4: IO - change the world"
     changeWorld
+    putStrLn ">>> Test 5: List Monad for backtracking - 8 queens"
+    print (queens 8::[[Integer]])
+    putStrLn ">>> Test 6: Maybe Monad fails backtracking"
+    print (queens 8::Maybe [Integer])
