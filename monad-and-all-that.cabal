@@ -1,0 +1,75 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: cae2bdbe9c066db2eab2c54965bc42e15e4654ca0fd25f82a170887bd7fd5f97
+
+name:           monad-and-all-that
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/lhttjdr/monad-and-all-that#readme>
+homepage:       https://github.com/lhttjdr/monad-and-all-that#readme
+bug-reports:    https://github.com/lhttjdr/monad-and-all-that/issues
+author:         lhttjdr
+maintainer:     lhttjdr@gmail.com
+copyright:      2018 lhttjdr
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/lhttjdr/monad-and-all-that
+
+library
+  exposed-modules:
+      Tree
+      Tree.BeforeMonad
+      Tree.BeforeMonad.Number
+      Tree.BeforeMonad.ZipTree
+      Tree.Monad
+      Tree.Naive
+  other-modules:
+      Paths_monad_and_all_that
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , monadplus >=1.4
+    , mtl >=2.2
+    , transformers >=0.5
+  default-language: Haskell2010
+
+executable monad-and-all-that-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_monad_and_all_that
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , monad-and-all-that
+    , monadplus >=1.4
+    , mtl >=2.2
+    , transformers >=0.5
+  default-language: Haskell2010
+
+test-suite monad-and-all-that-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_monad_and_all_that
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , monad-and-all-that
+    , monadplus >=1.4
+    , mtl >=2.2
+    , transformers >=0.5
+  default-language: Haskell2010

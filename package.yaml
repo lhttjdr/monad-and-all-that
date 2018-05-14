@@ -1,0 +1,51 @@
+name:                monad-and-all-that
+version:             0.1.0.0
+github:              "lhttjdr/monad-and-all-that"
+license:             BSD3
+author:              "lhttjdr"
+maintainer:          "lhttjdr@gmail.com"
+copyright:           "2018 lhttjdr"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/lhttjdr/monad-and-all-that#readme>
+
+dependencies:
+- base         >= 4.7 && < 5
+- mtl          >= 2.2
+- monadplus    >= 1.4
+- transformers >= 0.5
+
+library:
+  source-dirs: src
+
+executables:
+  monad-and-all-that-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+
+tests:
+  monad-and-all-that-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
