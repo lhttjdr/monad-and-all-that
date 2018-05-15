@@ -26,7 +26,4 @@ instance Functor Tree where
 
 -- Maybe makes Haskell can throw exception (Nothing)
 data Maybe a = Nothing | Just a
-
-instance Show a => Show (Maybe a) where
-    show Nothing   = "Nothing"
-    show (Just a)  = "Just("++show a++")"
+    deriving (Eq, Show)

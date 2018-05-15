@@ -50,3 +50,65 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - monad-and-all-that
+    - hspec
+  tree:
+    main:               Spec.hs
+    source-dirs:        test/Tree
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+
+  random:
+    main:               Spec.hs
+    source-dirs:        test/Random
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+
+  io:
+    main:               Spec.hs
+    source-dirs:        test/IO
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+
+  queens:
+    main:               Spec.hs
+    source-dirs:        test/Queens
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+    - containers
+
+  maybeT:
+    main:               Spec.hs
+    source-dirs:        test/MaybeT
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+    - containers
