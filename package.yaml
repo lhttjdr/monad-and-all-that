@@ -112,3 +112,37 @@ tests:
     - hspec
     - QuickCheck
     - containers
+  parser:
+    main:               Spec.hs
+    source-dirs:        test/Parser
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+  backT:
+    main:               Spec.hs
+    source-dirs:        test/BackT
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+  prolog:
+    main:               Spec.hs
+    source-dirs:        test/Prolog
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - monad-and-all-that
+    - hspec
+    - QuickCheck
+    - containers

@@ -7,7 +7,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 
 module BackT
-    ( BackT(BackT), unBackT, runBackT
+    ( BackT(BackT), unBackT, runBackT, mplus, mzero
     ) where
 
 import           Control.Applicative (Applicative(..), Alternative(..))
