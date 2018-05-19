@@ -8,6 +8,7 @@ import Parser.Naive as N
 import Parser.BeforeApplicative as B
 import Parser.Applicative as A
 import Parser.Static as S
+import Parser.Optimized as O
 
 main :: IO ()
 main = hspec $ do
@@ -45,3 +46,14 @@ main = hspec $ do
             (S.runStatic (many (exactly ' ') *> exactly 'x')) `shouldBe` (" x",False)
         it ("#4 : `expr`") $ do
             (S.runStatic S.expr) `shouldBe` ("0123456789(",False)
+    describe "Optimized Parser" $ do
+        it ("#1 : (1+2+3)*5-5") $ do
+            (O.runOptParser O.expr "(1+2+3)*5+5") `shouldBe` Just (35,"")
+        it ("#2 : (1*2+3*(4+5+6*7))+4+5*(1+2)") $ do
+            (O.runOptParser O.expr "(1*2+3*(4+5+6*7))+4+5*(1+2)") `shouldBe` Just (174,"")
+        it ("#2 : (1*2+3*(4+5+6*7))+4+5*(1+2)") $ do
+            (O.runOptParser O.expr "(1*2+3*(4+5+6*7))+4+5*(1+2)") `shouldBe` Just (174,"")
+        it ("#3 : (2342*235+(3234+345)*(4+(535+63)*7))+(4+5)*(1+2)") $ do
+            (O.runOptParser O.expr "(2342*235+(3234+345)*(4+(535+63)*7))+(4+5)*(1+2)") `shouldBe` Just (15546407,"")
+        it ("#4 : ((1*2234))+3*(4+(5+346)+6*7)+4+5*(1+2+34+56)+435") $ do
+            (O.runOptParser O.expr "((1*2234))+3*(4+(5+346)+6*7)+4+5*(1+2+34+56)+435") `shouldBe` Just (4329,"")

@@ -2,12 +2,15 @@
 {-# LANGUAGE DeriveFunctor #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-module Parser.Optmized (
+module Parser.Optimized (
    OptParser
+   , runOptParser
+   , expr
    ) where
 
 
 import Data.List (nub)
+import Data.Maybe (fromJust)
 
 import Control.Applicative hiding (WrappedMonad)
 import Control.Monad
@@ -181,19 +184,44 @@ instance Alternative OptParser where
     empty = Opt (Prod empty empty)
     -- s : (starters of m , if m match empty)
     -- s' : (starters of m' , if m' match empty)
-    -- 1. starters of m' should match the next symbol of m
+    -- 1. starters of m' should match the next symbol
     -- 2. or m' can match empty
-    Opt ~(Prod (Static s) (Monadic m)) <|> ~(Opt (Prod (Static s') (Monadic m'))) =
-        if (acceptEmpty)
-            then Opt (Prod ((Static s) <|> (Static s')) ((Monadic m) <|> (Monadic m')))
-            else empty
+    (Opt (Prod s m)) <|> ~(Opt (Prod s' m')) =
+        Opt (Prod (s <|> s') (optMonadicMplus m m'))
         where
---            next = head . snd . fromJust . runMonadic (Monadic m)
-            (starters, acceptEmpty) = runStatic (Static s')
-
+            optMonadicMplus (Monadic (Wrap a)) (Monadic (Wrap a')) =
+                Monadic(Wrap (StateT (\s ->
+                    if skip s
+                        then runStateT a s -- skip next choice
+                        else runStateT a s `mplus` runStateT a' s)))
+            (starters, acceptEmpty) = runStatic s'
+            skip x = (not acceptEmpty) && ((head x) `notElem` starters)
     -- There are standard implements of `some` and `many` in applicative library.
     -- Here is just for demonstration.
     some f = s
        where
          s = (:) <$> f <*> (s <|> pure [])
     many f = some f <|> pure []
+
+runOptParser :: OptParser a -> String -> Maybe (a, String)
+runOptParser (Opt (Prod (Static _) (Monadic m))) s = runMonadic (Monadic m) s
+
+number
+    :: Parser p
+    => p Integer
+number = read <$> some (anyof ['0' .. '9'])
+
+expr
+    :: Parser p
+    => p Integer
+expr = (+) <$> term <* exactly '+' <*> expr <|> term
+
+term
+    :: Parser p
+    => p Integer
+term = (*) <$> factor <* exactly '*' <*> term <|> factor
+
+factor
+    :: Parser p
+    => p Integer
+factor = number <|> exactly '(' *> expr <* exactly ')'
